@@ -25,6 +25,10 @@
     </nav>
     <div class="container mt-5">
         <h1>Registration Form</h1>
+        <?php
+        $email = htmlspecialchars($_POST["email"] ?? " ", ENT_QUOTES);
+        $password = htmlspecialchars($_POST["password"] ?? " ", ENT_QUOTES);
+        ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -64,6 +68,11 @@
             <div class="mb-3 form-check">
                 <input type="checkbox" name="tos" id="tos" class="form-check-input">
                 <label class="form-check-label" for="tos">Accept TOS</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="comments">Comments</label>
+                <textarea name="comments" id="comments" class="form-control">
+                </textarea>
             </div>
             <input type="submit" name="submit" value="Register" class="btn btn-primary">
         </form>
