@@ -26,9 +26,11 @@
     <div class="container mt-5">
         <h1>Registration Form</h1>
         <?php
-        $email = htmlspecialchars($_POST["email"] ?? " ", ENT_QUOTES);
-        $password = htmlspecialchars($_POST["password"] ?? " ", ENT_QUOTES);
-        $comments = nl2br(htmlspecialchars($_POST["comments"] ?? " ", ENT_QUOTES));
+        // htmlspecialchars scrubs the data and ent quotes is a set of data you want to remove from the data you are passing in example ^&&*
+        $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
+        $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
+        $comments = nl2br(htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES));
+        echo "<div class=\"mb-3\">Email: $email<br>Password: $password<br>Comments: $comments</div>";
         ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
