@@ -28,7 +28,7 @@
         <?php
         $email = htmlspecialchars($_POST["email"] ?? " ", ENT_QUOTES);
         $password = htmlspecialchars($_POST["password"] ?? " ", ENT_QUOTES);
-        $comments = htmlspecialchars($_POST["comments"] ?? " ", ENT_QUOTES);
+        $comments = nl2br(htmlspecialchars($_POST["comments"] ?? " ", ENT_QUOTES));
         ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
