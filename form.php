@@ -34,8 +34,12 @@
         $interests = (isset($_POST["interests"]) && is_array($_POST["interests"])) ?
                 htmlspecialchars(implode(", ", $_POST["interests"]), ENT_QUOTES) :
                 "";
-
-        echo "<div class=\"mb-3\">Email: $email<br>Password: $password<br>Comments: $comments<br>$layout<br>$interests<br></div>";
+                //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
+        echo "<div class=\"mb-3\">Email: $email<br>Password: $password
+        <br>Comments: $comments
+        <br>$layout
+        <br>$interests
+       </div>";
         ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
