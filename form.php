@@ -88,7 +88,8 @@
                 <textarea name="comments" id="comments" class="form-control">
                 </textarea>
             </div>
-            <input type="submit" name="submit" value="Register" class="btn btn-primary">
+            <!-- <input type="submit" name="submit" value="Register" class="btn btn-primary"> -->
+            <input type="image" name="submit" src="logo.png" class="btn btn-primary">
         </form>
     </div>
 </body>
