@@ -52,7 +52,7 @@
             </div>
             <div class="mb-3">
                 <label for="interests" class="form-label">Interests</label>
-                <select multiple size="3" name="interests" id="interests" class="form-select">
+                <select multiple size="3" name="interests[]" id="interests" class="form-select">
                     <option value="1">Concerts</option>
                     <option value="2">Sports</option>
                     <option value="3">Theater</option>
