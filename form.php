@@ -31,7 +31,11 @@
         $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
         $comments = nl2br(htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES));
         $layout = htmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
-        echo "<div class=\"mb-3\">Email: $email<br>Password: $password<br>Comments: $comments<br>$layout<br></div>";
+        $interests = (isset($_POST["interests"]) && is_array($_POST["interests"])) ?
+                htmlspecialchars(implode(", ", $_POST["interests"]), ENT_QUOTES) :
+                "";
+
+        echo "<div class=\"mb-3\">Email: $email<br>Password: $password<br>Comments: $comments<br>$layout<br>$interests<br></div>";
         ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
