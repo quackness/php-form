@@ -27,6 +27,7 @@
         <h1>Registration Form</h1>
         <?php
         // htmlspecialchars scrubs the data and ent quotes is a set of data you want to remove from the data you are passing in example ^&&*
+        if(isset($_POST["submit"]) && $_POST["submit"] === "Register") {
         $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
         $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
         $comments = nl2br(htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES));
@@ -40,6 +41,7 @@
         <br>$layout
         <br>$interests
        </div>";
+        };
         ?>
         <form method="post" action="" class="mt-4">
             <div class="mb-3">
