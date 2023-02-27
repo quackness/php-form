@@ -50,6 +50,12 @@
             $interests = myHtmlspecialchars(implode(", ", $interestsAsArray), ENT_QUOTES);
            
             if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
+
+                if(isset($_FILES["picture"])) {
+                    echo "<pre><code>";
+                    var_dump($_FILES["picture"]);
+                    echo "</code></pre>";
+                }
         
             //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
             $formComplete = true;
@@ -108,7 +114,7 @@
 
         if (!$formComplete) {
             ?>
-            <form method="post" action="" class="mt-4" enctype="multipart/form-data">
+            <form method="post" action="" enctype="multipart/form-data" class="mt-4">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="text" name="email" id="email" value="<?=$email?>" class="form-control">
