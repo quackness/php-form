@@ -142,7 +142,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="comments">Comments</label>
-                    <textarea name="comments" id="comments" class="form-control">
+                    <textarea name="comments" id="comments" class="form-control"><?=$comments?>
                     </textarea>
                 </div>
                 <!-- <input type="submit" name="submit" value="Register" class="btn btn-primary"> -->
