@@ -32,7 +32,7 @@
 
             $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
             $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
-            $comments = nl2br(htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES));
+            $comments = htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES);
             $customertype = htmlspecialchars($_POST["customertype"] ?? "", ENT_QUOTES);
             $tos = htmlspecialchars($_POST["tos"] ?? "", ENT_QUOTES);
             $layout = htmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
@@ -103,7 +103,7 @@
             <form method="post" action="" class="mt-4">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="text" name="email" id="email" class="form-control">
+                    <input type="text" name="email" id="email" value="<?=$email?>" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
