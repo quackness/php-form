@@ -26,18 +26,28 @@
     <div class="container mt-5">
         <h1>Registration Form</h1>
         <?php
+        function myHtmlspecialchars($s, $flags = null) {
+            if(is_string($s)) {
+                return ($flags === null) ?
+                htmlspecialchars($s) :
+                htmlspecialchars($s, $flags);
+            } else {
+                return "";
+
+            }
+        }
         // htmlspecialchars scrubs the data and ent quotes is a set of data you want to remove from the data you are passing in example ^&&*
         // if(isset($_POST["submit"]) && $_POST["submit"] === "Register") {
             $formComplete = false;
 
-            $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
-            $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
-            $comments = htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES);
+            $password = myHtmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
+            $comments = myHtmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES);
             $customertype = htmlspecialchars($_POST["customertype"] ?? "", ENT_QUOTES);
-            $tos = htmlspecialchars($_POST["tos"] ?? "", ENT_QUOTES);
-            $layout = htmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
+            $email = myHtmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
+            $tos = myHtmlspecialchars($_POST["tos"] ?? "", ENT_QUOTES);
+            $layout = myHtmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
             $interestsAsArray = (isset($_POST["interests"]) && is_array($_POST["interests"])) ? $_POST["interests"] : [];
-            $interests = htmlspecialchars(implode(", ", $interestsAsArray), ENT_QUOTES);
+            $interests = myHtmlspecialchars(implode(", ", $interestsAsArray), ENT_QUOTES);
            
             if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
         
@@ -52,8 +62,7 @@
             if (trim($email) === "") {
                 $formComplete = false;
                 array_push($errorMessages, "Email address missing");
-            }
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            } else if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $formComplete = false;
                 array_push($errorMessages, "Email address is incorrect");
             }
