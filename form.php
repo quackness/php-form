@@ -128,16 +128,28 @@
                 <div class="input-group mb-1">
                     <label class="form-label me-5">Customer type</label>
                     <div class="mb-3 me-4 form-check">
-                    <input type="radio" name="customertype" value="seller" id="seller" class="form-check-input">
+                    <input type="radio" name="customertype" value="seller" id="seller"<?php
+                        if($customertype === "seller") {
+                            echo " checked";
+                        }
+                    ?> class="form-check-input">
                         <label class="form-check-label" for="seller">Seller</label>
                     </div>
                     <div class="mb-3 form-check">
-                        <input type="radio" name="customertype" value="buyer" id="buyer" class="form-check-input">
+                        <input type="radio" name="customertype" value="buyer" id="buyer"<?php
+                        if($customertype === "buyer") {
+                            echo " checked";
+                        }
+                    ?> class="form-check-input">
                         <label class="form-check-label" for="buyer">Buyer</label>
                     </div>
                 </div>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" name="tos" value="ok" id="tos" class="form-check-input">
+                    <input type="checkbox" name="tos" value="ok" id="tos"<?php
+                        if($tos === "ok") {
+                            echo " checked";
+                        }
+                    ?> class="form-check-input">
                     <label class="form-check-label" for="tos">Accept TOS</label>
                 </div>
                 <div class="mb-3">
