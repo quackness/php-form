@@ -108,7 +108,7 @@
 
         if (!$formComplete) {
             ?>
-            <form method="post" action="" class="mt-4">
+            <form method="post" action="" class="mt-4" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
                     <input type="text" name="email" id="email" value="<?=$email?>" class="form-control">
@@ -187,6 +187,11 @@
                 <div class="mb-3">
                     <label class="form-label" for="comments">Comments</label>
                     <textarea name="comments" id="comments" class="form-control"><?=$comments?>
+                    </textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="picture">Profile picture</label>
+                    <input accept="image/*" type="file" name="picture" id="picture" class="form-control-file">
                     </textarea>
                 </div>
                 <!-- <input type="submit" name="submit" value="Register" class="btn btn-primary"> -->
