@@ -1,3 +1,10 @@
+<?php 
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -57,9 +64,9 @@
                     echo "<pre><code>";
                     var_dump($_FILES["picture"]);
                     echo "</code></pre>";
-                    ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+                    // ini_set('display_errors', 1);
+                    // ini_set('display_startup_errors', 1);
+                    // error_reporting(E_ALL);
                 }
         
             //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
