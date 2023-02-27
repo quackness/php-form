@@ -27,7 +27,7 @@
         <h1>Registration Form</h1>
         <?php
         function myHtmlspecialchars($s, $flags = null) {
-            if(is_string($s)) {
+            if (is_string($s)) {
                 return ($flags === null) ?
                 htmlspecialchars($s) :
                 htmlspecialchars($s, $flags);
@@ -40,10 +40,11 @@
         // if(isset($_POST["submit"]) && $_POST["submit"] === "Register") {
             $formComplete = false;
 
+            
+            $email = myHtmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
             $password = myHtmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
             $comments = myHtmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES);
-            $customertype = htmlspecialchars($_POST["customertype"] ?? "", ENT_QUOTES);
-            $email = myHtmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
+            $customertype = myHtmlspecialchars($_POST["customertype"] ?? "", ENT_QUOTES);
             $tos = myHtmlspecialchars($_POST["tos"] ?? "", ENT_QUOTES);
             $layout = myHtmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
             $interestsAsArray = (isset($_POST["interests"]) && is_array($_POST["interests"])) ? $_POST["interests"] : [];
@@ -51,10 +52,14 @@
            
             if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
 
+
                 if(isset($_FILES["picture"])) {
                     echo "<pre><code>";
                     var_dump($_FILES["picture"]);
                     echo "</code></pre>";
+                    ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
                 }
         
             //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
@@ -70,12 +75,12 @@
                 array_push($errorMessages, "Email address missing");
             } else if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
                 $formComplete = false;
-                array_push($errorMessages, "Email address is incorrect");
+                array_push($errorMessages, "Email address incorrect");
             }
 
             if (trim($password) === "") {
                 $formComplete = false;
-                array_push($errorMessages, "Passoword field cannot be blank");
+                array_push($errorMessages, "Password missing");
             }
             if (trim($comments) === "") {
                 $formComplete = false;
@@ -91,13 +96,32 @@
             }
             if (!in_array($layout, ["dark", "light"])) {
                 $formComplete = false;
-                array_push($errorMessages, "Layout selection missing");
+                array_push($errorMessages, "Layout missing");
             }
             if ($interests === "") {
                 $formComplete = false;
                 array_push($errorMessages, "Interests missing");
             }
-
+            if (!isset($_FILES["picture"])) {
+                $formComplete = false;
+                array_push($errorMessages, "Profile picture missing");
+            } else {
+                if (!is_uploaded_file($_FILES["picture"]["tmp_name"])) {
+                    $formComplete = false;
+                    array_push($errorMessages, "Profile picture missing");
+                } else {
+                    $mime_type = mime_content_type($_FILES["picture"]["tmp_name"]);
+                    echo print_r($mime_type);
+                    if (strpos($mime_type, "image/") != false) {
+                            $formComplete = false;
+                            array_push($errorMessages, "No image uploaded");
+                        } else {
+                            move_uploaded_file(
+                                $_FILES["picture"]["tmp_name"],
+                                "../../uploads/" . random_int(1, PHP_INT_MAX) . "-" . basename($_FILES["picture"]["name"]));
+                        }
+                }
+            }
             if ($formComplete) {
                 echo "<div class=\"mb-3\">Email: $email<br>Password: $password
                 <br>Customer type: $customertype<br>Accept TOS: $tos
@@ -110,14 +134,14 @@
             }
                 echo "</ul></div>";
             }
-        };
+        }
 
         if (!$formComplete) {
             ?>
             <form method="post" action="" enctype="multipart/form-data" class="mt-4">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email address</label>
-                    <input type="text" name="email" id="email" value="<?=$email?>" class="form-control">
+                    <input type="email" name="email" id="email" value="<?=$email?>" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -148,17 +172,17 @@
                     <select multiple size="3" name="interests[]" id="interests" class="form-select">
                         <option value="1"<?php
                             if (in_array("1", $interestsAsArray)) {
-                                echo "selected";
+                                echo " selected";
                             }
                         ?>>Concerts</option>
                         <option value="2"<?php
                             if (in_array("2", $interestsAsArray)) {
-                                echo "selected";
+                                echo " selected";
                             }
                         ?>>Sports</option>
                         <option value="3"<?php
                             if (in_array("3", $interestsAsArray)) {
-                                echo "selected";
+                                echo " selected";
                             }
                         ?>>Theater</option>
                     </select>
@@ -167,7 +191,7 @@
                     <label class="form-label me-5">Customer type</label>
                     <div class="mb-3 me-4 form-check">
                     <input type="radio" name="customertype" value="seller" id="seller"<?php
-                        if($customertype === "seller") {
+                        if ($customertype === "seller") {
                             echo " checked";
                         }
                     ?> class="form-check-input">
@@ -175,7 +199,7 @@
                     </div>
                     <div class="mb-3 form-check">
                         <input type="radio" name="customertype" value="buyer" id="buyer"<?php
-                        if($customertype === "buyer") {
+                        if ($customertype === "buyer") {
                             echo " checked";
                         }
                     ?> class="form-check-input">
@@ -184,7 +208,7 @@
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" name="tos" value="ok" id="tos"<?php
-                        if($tos === "ok") {
+                        if ($tos === "ok") {
                             echo " checked";
                         }
                     ?> class="form-check-input">
@@ -192,8 +216,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="comments">Comments</label>
-                    <textarea name="comments" id="comments" class="form-control"><?=$comments?>
-                    </textarea>
+                    <textarea name="comments" id="comments" class="form-control"><?=$comments?></textarea>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="picture">Profile picture</label>
