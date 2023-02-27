@@ -29,8 +29,7 @@
         // htmlspecialchars scrubs the data and ent quotes is a set of data you want to remove from the data you are passing in example ^&&*
         // if(isset($_POST["submit"]) && $_POST["submit"] === "Register") {
             $formComplete = false;
-           
-            if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
+
             $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
             $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
             $comments = nl2br(htmlspecialchars($_POST["comments"] ?? "", ENT_QUOTES));
@@ -40,6 +39,9 @@
             $interests = (isset($_POST["interests"]) && is_array($_POST["interests"])) ? 
                 htmlspecialchars(implode(", ", $_POST["interests"]), ENT_QUOTES) :
                 "";
+           
+            if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
+        
             //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
             $formComplete = true;
             $errorMessages = [];
