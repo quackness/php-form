@@ -36,9 +36,8 @@
             $customertype = htmlspecialchars($_POST["customertype"] ?? "", ENT_QUOTES);
             $tos = htmlspecialchars($_POST["tos"] ?? "", ENT_QUOTES);
             $layout = htmlspecialchars($_POST["layout"] ?? "", ENT_QUOTES);
-            $interests = (isset($_POST["interests"]) && is_array($_POST["interests"])) ? 
-                htmlspecialchars(implode(", ", $_POST["interests"]), ENT_QUOTES) :
-                "";
+            $interestsAsArray = (isset($_POST["interests"]) && is_array($_POST["interests"])) ? $_POST["interests"] : [];
+            $interests = htmlspecialchars(implode(", ", $interestsAsArray), ENT_QUOTES);
            
             if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
         
@@ -132,9 +131,21 @@
                 <div class="mb-3">
                     <label for="interests" class="form-label">Interests</label>
                     <select multiple size="3" name="interests[]" id="interests" class="form-select">
-                        <option value="1">Concerts</option>
-                        <option value="2">Sports</option>
-                        <option value="3">Theater</option>
+                        <option value="1"<?php
+                            if (in_array("1", $interestsAsArray)) {
+                                echo "selected";
+                            }
+                        ?>>Concerts</option>
+                        <option value="2"<?php
+                            if (in_array("2", $interestsAsArray)) {
+                                echo "selected";
+                            }
+                        ?>>Sports</option>
+                        <option value="3"<?php
+                            if (in_array("3", $interestsAsArray)) {
+                                echo "selected";
+                            }
+                        ?>>Theater</option>
                     </select>
                 </div>
                 <div class="input-group mb-1">
