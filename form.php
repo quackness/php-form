@@ -88,7 +88,7 @@
                 echo "<div class=\"mb-3\">Email: $email<br>Password: $password
                 <br>Customer type: $customertype<br>Accept TOS: $tos
                 <br>Layout: $layout<br>Interests: $interests<br>
-                Comments: $comments</div>";
+                Comments: " . nl2br($comments) ."</div>";
             } else {
                 echo "<div class=\"mt-4 mb-3 text-danger\"><p class=\"fw-bold\">Validation errors:</p><ul>";
                 foreach ($errorMessages as $errorMessage) {
