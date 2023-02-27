@@ -29,6 +29,7 @@
         // htmlspecialchars scrubs the data and ent quotes is a set of data you want to remove from the data you are passing in example ^&&*
         // if(isset($_POST["submit"]) && $_POST["submit"] === "Register") {
             $formComplete = false;
+           
             if (isset($_POST["submit"]) && $_POST["submit"] === "Register") {
             $email = htmlspecialchars($_POST["email"] ?? "", ENT_QUOTES);
             $password = htmlspecialchars($_POST["password"] ?? "", ENT_QUOTES);
@@ -41,27 +42,44 @@
                 "";
             //implode takes values from the array and glue them together to a string, between those values we will use a comma and a blank
             $formComplete = true;
+            $errorMessages = [];
+  
+            // if (trim($email) === "" || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            //     $formComplete = false;
+            // }
 
-            if (trim($email) === "" || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            if (trim($email) === "") {
                 $formComplete = false;
+                array_push($errorMessages, "Email address missing");
             }
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+                $formComplete = false;
+                array_push($errorMessages, "Email address is incorrect");
+            }
+
             if (trim($password) === "") {
                 $formComplete = false;
+                array_push($errorMessages, "Passoword field cannot be blank");
             }
             if (trim($comments) === "") {
                 $formComplete = false;
+                array_push($errorMessages, "Comments missing");
             }
             if (!in_array($customertype, ["seller", "buyer"])) {
                 $formComplete = false;
+                array_push($errorMessages, "Customer type missing");
             }
             if ($tos !== "ok") {
                 $formComplete = false;
+                array_push($errorMessages, "ToS must be accepted");
             }
             if (!in_array($layout, ["dark", "light"])) {
                 $formComplete = false;
+                array_push($errorMessages, "Layout selection missing");
             }
             if ($interests === "") {
                 $formComplete = false;
+                array_push($errorMessages, "Interests missing");
             }
 
             if ($formComplete) {
@@ -70,7 +88,11 @@
                 <br>Layout: $layout<br>Interests: $interests<br>
                 Comments: $comments</div>";
             } else {
-                // to do error 
+                echo "<div class=\"mt-4 mb-3 text-danger\"><p class=\"fw-bold\">Validation errors:</p><ul>";
+                foreach ($errorMessages as $errorMessage) {
+                echo "<li>$errorMessage</li>";
+            }
+                echo "</ul></div>";
             }
         };
 
