@@ -112,9 +112,21 @@
                 <div class="mb-3">
                     <label for="layout" class="form-label">Layout</label>
                     <select name="layout" id="layout" class="form-select">
-                        <option value="">-- Please choose --</option>
-                        <option value="dark">Dark</option>
-                        <option value="light">Light</option>
+                        <option value=""<?php
+                        if ($layout === "") {
+                            echo " selected";
+                        }
+                        ?>>-- Please choose --</option>
+                        <option value="dark"<?php
+                        if ($layout === "dark") {
+                            echo " selected";
+                        }
+                        ?>>Dark</option>
+                        <option value="light"<?php
+                        if ($layout === "light") {
+                            echo " selected";
+                        }
+                        ?>>Light</option>
                     </select>
                 </div>
                 <div class="mb-3">
